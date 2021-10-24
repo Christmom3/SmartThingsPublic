@@ -27,7 +27,7 @@ metadata {
 		capability "Health Check"
 		capability "Refresh"
 
-		fingerprint profileId: "0104", inClusters: "0000, 0001, 0003, 0004, 0005, 0009, 0101", outClusters: "0019", manufacturer: "SAMSUNG SDS"
+		fingerprint profileId: "0104", inClusters: "0000, 0001, 0003, 0004, 0005, 0009, 0101", outClusters: "0019", manufacturer: "SAMSUNG SDS", deviceJoinName: "Samsung Door Lock"
         
 	}
 
@@ -194,7 +194,6 @@ private def parseAttributeResponse(String description) {
 		return null
 	}
 
-	responseMap.data = [ lockName: deviceName ]
 	result << createEvent(responseMap)
 	log.info "ZigBee DTH - parseAttributeResponse() returning with result:- $result"
 	return result
@@ -386,11 +385,6 @@ private def parseCommandResponse(String description) {
 	}
 
 	if (responseMap["value"]) {
-		if (responseMap.data) {
-			responseMap.data.lockName = deviceName
-		} else {
-			responseMap.data = [ lockName: deviceName ]
-		}
 		result << createEvent(responseMap)
 	}
 	if (result) {
