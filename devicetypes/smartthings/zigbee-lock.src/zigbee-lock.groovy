@@ -28,6 +28,8 @@ metadata {
 		capability "Health Check"
 
 		fingerprint profileId: "0104", inClusters: "0000,0001,0009,000A,0101,0020", outClusters: "000A,0019", manufacturer: "Yale", model: "YRD220/240 TSDB", deviceJoinName: "Yale Door Lock" //Yale Touch Screen Deadbolt Lock
+		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0009,000A,0101", outClusters: "0019", manufacturer: "TOTEM", model: "H60/H90", deviceJoinName: "TOTEM Door Lock" //TOTEM Door lock
+		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0009,000A,0101", outClusters: "0019", manufacturer: "TOTEM", model: "P30", deviceJoinName: "TOTEM Door Lock" //TOTEM Door lock
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0009,000A,0101,0020", outClusters: "000A,0019", manufacturer: "Yale", model: "YRL220 TS LL", deviceJoinName: "Yale Door Lock" //Yale Touch Screen Lever Lock
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0009,000A,0101,0020", outClusters: "000A,0019", manufacturer: "Yale", model: "YRD210 PB DB", deviceJoinName: "Yale Door Lock" //Yale Push Button Deadbolt Lock
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0009,000A,0101,0020", outClusters: "000A,0019", manufacturer: "Yale", model: "YRD220/240 TSDB", deviceJoinName: "Yale Door Lock" //Yale Touch Screen Deadbolt Lock
@@ -48,7 +50,9 @@ metadata {
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0009,000A,0020,0101", outClusters: "000A,0019", manufacturer: "ASSA ABLOY iRevo", model: "iZBModule01", deviceJoinName: "Yale Door Lock" //Yale Locks (YDF30/40, YMF30/40) with old firmware (v.9.0)
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0009,000A,0020,0101", outClusters: "000A,0019", manufacturer: "ASSA ABLOY iRevo", model: "c700000202", deviceJoinName: "Yale Door Lock" //Yale Fingerprint Lock YDF40
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0009,000A,0020,0101", outClusters: "000A,0019", manufacturer: "ASSA ABLOY iRevo", model: "0700000001", deviceJoinName: "Yale Door Lock" //Yale Fingerprint Lock YMF40
+		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0004,0005,0009,000A,0020,0101", outClusters: "000A,0019", manufacturer: "ASSA ABLOY iRevo", model: "06ffff2027", deviceJoinName: "Yale Door Lock" //Yale Fingerprint Lock YMF40
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0101", outClusters: "0000,0001,0003,0101", manufacturer: "Datek", model: "ID Lock 150", deviceJoinName: "ID Lock Door Lock" //ID Lock 150 Zigbee Module by Datek
+		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0009,0020,0101", outClusters: "0019", manufacturer: "Danalock", model: "V3-BTZBE", deviceJoinName: "Danalock Door Lock"
 	}
 
 	tiles(scale: 2) {
@@ -1133,7 +1137,7 @@ def isYaleLock() {
 }
 
 def isYaleFingerprintLock() {
-	return "ASSA ABLOY iRevo" == device.getDataValue("manufacturer") && ("iZBModule01" || "c700000202" || "0700000001" == device.getDataValue("model"))
+	return "ASSA ABLOY iRevo" == device.getDataValue("manufacturer") && ("iZBModule01" || "c700000202" || "0700000001" || "06ffff2027" == device.getDataValue("model"))
 }
 
 /**
@@ -1148,7 +1152,8 @@ def reportsBatteryIncorrectly() {
 			"YRD210 PB DB",
 			"YRD220/240 TSDB",
 			"YRL210 PB LL",
-			"c700000202" //YDF40
+			"c700000202", //YDF40
+			"06ffff2027"  //YMF40
 	]
 	return device.getDataValue("model") in badModels
 }

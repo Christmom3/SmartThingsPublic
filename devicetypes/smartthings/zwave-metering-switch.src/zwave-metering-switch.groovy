@@ -53,6 +53,9 @@ metadata {
 		fingerprint mfr: "0154", prod: "0003", model: "000A", deviceJoinName: "POPP Outlet", ocfDeviceType: "oic.d.smartplug" //EU //POPP Smart Outdoor Plug
 		fingerprint mfr: "010F", prod: "1F01", model: "1000", deviceJoinName: "Fibaro Outlet", ocfDeviceType: "oic.d.smartplug" //EU //Fibaro walli Outlet //Fibaro Outlet
 		fingerprint mfr: "0312", prod: "FF00", model: "FF0E", deviceJoinName: "Minoston Outlet", ocfDeviceType: "oic.d.smartplug" //Mini Smart Plug Meter, MP21ZP
+		fingerprint mfr: "0312", prod: "FF00", model: "FF0F", deviceJoinName: "Minoston Outlet", ocfDeviceType: "oic.d.smartplug" //Mini Smart Plug Meter, MP22ZP
+		fingerprint mfr: "0312", prod: "FF00", model: "FF11", deviceJoinName: "Minoston Outlet", ocfDeviceType: "oic.d.smartplug" //Mini Power Meter Plug, ZW38M
+		fingerprint mfr: "0312", prod: "AC01", model: "4003", deviceJoinName: "New One Outlet", ocfDeviceType: "oic.d.smartplug" //Mini Power Meter Plug, N4003
 	}
 
 	// simulator metadata
@@ -284,6 +287,10 @@ def configure() {
 }
 
 def reset() {
+	resetEnergyMeter()
+}
+
+def resetEnergyMeter() {
 	encapSequence([
 		meterReset(),
 		meterGet(scale: 0)
